@@ -203,8 +203,15 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  return `${new Array(height)
+    .fill(new Array(width)
+      .fill(' '))
+    .map((it, i) => it
+      // eslint-disable-next-line no-nested-ternary
+      .map((itc, ic) => (i === 0 || i === height - 1 ? ic === 0 ? i === 0 ? '┌' : '└' : ic === width - 1 ? i === 0 ? '┐' : '┘' : '─' : ic === 0 || ic === width - 1 ? '│' : itc))
+      .join(''))
+    .join('\n')}\n`;
 }
 
 
