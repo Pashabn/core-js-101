@@ -427,8 +427,16 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country > b.country) return 1;
+    if (a.country < b.country) return -1;
+    return 0;
+  }).sort((a, b) => {
+    if (a.country === b.country && a.city > b.city) return 1;
+    if (a.country === b.country && a.city < b.city) return -1;
+    return 0;
+  });
 }
 
 /**
@@ -515,8 +523,12 @@ function distinct(arr) {
  *    "Poland" => ['Lodz']
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const keys = Array.from(new Set(array.map((i) => keySelector(i))));
+  const result = new Map();
+  keys.map((el) => result.set(el, []));
+  array.map((el) => result.get(keySelector(el)).push(valueSelector(el)));
+  return result;
 }
 
 
@@ -541,7 +553,7 @@ function selectMany(arr, childrenSelector) {
  * Returns an element from the multidimensional array by the specified indexes.
  *
  * @param {array} arr
- * @param {array} indexes
+ * @param {array} idx
  * @return {any} element from array
  *
  * @example
@@ -549,8 +561,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, idx) {
+  return idx.length > 1 ? getElementByIndexes(arr[idx[0]], idx.slice(1)) : arr[idx[0]];
 }
 
 
@@ -572,8 +584,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const head = (arg) => arr.slice(0, arg);
+  const tail = (arg) => arr.slice(arg);
+  const center = arr.length / 2;
+  if (center % 1 !== 0) {
+    return [...tail(center + 1), arr[Math.floor(center)], ...head(Math.floor(center))];
+  }
+  return [...tail(center), ...head(Math.floor(center))];
 }
 
 
