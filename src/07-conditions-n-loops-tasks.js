@@ -322,20 +322,21 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(str) {
-  const bracketsConfig = ['[]', '()', '{}', '<>'];
-  const check = (x, y = bracketsConfig.find((i) => x.includes(i))) => {
-    console.log(x, y);
-    if (!y.length) return false;
-    // for (let i = 0; i < y.length; i += 1) {
-    // console.log(x);
-    // eslint-disable-next-line no-param-reassign
-    const xx = x.replace(y, '');
-    console.log(xx);
-    // }
-    return xx ? true : check(xx);
-  };
-  return check(str);
+function isBracketsBalanced(/* str */) {
+  // const bracketsConfig = ['[]', '()', '{}', '<>'];
+  // const check = (x, y = bracketsConfig.find((i) => x.includes(i))) => {
+  //   console.log(x, y);
+  //   if (!y.length) return false;
+  //   // for (let i = 0; i < y.length; i += 1) {
+  //   // console.log(x);
+  //   // eslint-disable-next-line no-param-reassign
+  //   const xx = x.replace(y, '');
+  //   console.log(xx);
+  //   // }
+  //   return xx ? true : check(xx);
+  // };
+  // return check(str);
+  throw new Error('Not implemented');
 }
 
 
