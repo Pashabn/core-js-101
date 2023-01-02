@@ -44,7 +44,7 @@ function parseDataFromIso8601(value) {
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
  *
  * @param {date} date
- * @return {bool}
+ * @return {boolean}
  *
  * @example :
  *    Date(1900,1,1)    => false
@@ -53,8 +53,8 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  return new Date(date.getFullYear(), 2, 0).getDate() > 28;
 }
 
 
@@ -73,8 +73,13 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const def = endDate - startDate;
+  const hrs = Math.trunc(def / 3600000).toString().padStart(2, '0');
+  const mnts = Math.trunc((def % 3600000) / 60000).toString().padStart(2, '0');
+  const scnds = Math.trunc(((def % 3600000) % 60000) / 1000).toString().padStart(2, '0');
+  const mlscnds = (((def % 3600000) % 60000) % 1000).toString().padStart(3, '0');
+  return `${hrs}:${mnts}:${scnds}.${mlscnds}`;
 }
 
 
@@ -94,8 +99,13 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+
+function angleBetweenClockHands(date) {
+  const m = date.getUTCMinutes();
+  const h = date.getUTCHours() % 12;
+  const hd = (0.5 * (60 * h + m));
+  const md = 6 * m;
+  return Math.min(Math.abs(hd - md), (360 - Math.abs(hd - md))) * (Math.PI / 180);
 }
 
 
